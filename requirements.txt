@@ -1,2 +1,4 @@
 streamlit>=1.40
 openai>=1.60
+langchain>=1.0
+langchain-ollama>=0.3
