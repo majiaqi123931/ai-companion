@@ -1,60 +1,42 @@
-# AI 智能伴侣（AI Companion）
+# AI 智能伴侣
 
-基于大模型的角色扮演聊天应用：自定义伴侣昵称与性格，支持多轮对话、流式输出与会话管理。默认连接本地 [Ollama](https://ollama.com)，一行环境变量即可切换到任意 OpenAI 兼容的云端 API（DeepSeek / GLM / Kimi 等）。
+基于大模型的角色扮演聊天应用：可以自定义伴侣的昵称和性格，支持多轮对话、流式输出和会话管理。默认连本地 Ollama，改环境变量就能切到其他 OpenAI 兼容的云端 API。
 
 ![screenshot](docs/screenshot.png)
 
-## 功能特性
+## 功能
 
-- 💬 **多轮对话**：完整上下文 + 流式输出（打字机效果）
-- 🎭 **人设可配置**：昵称 + 性格描述通过 System Prompt 动态注入
-- 💾 **会话管理**：自动保存为 JSON，支持加载 / 删除历史会话
-- 🔌 **OpenAI 兼容接口**：本地 Ollama 与云端 API 无缝切换
+- 多轮对话，回答流式输出
+- 昵称 / 性格可配置，通过 System Prompt 动态生效
+- 会话自动保存成 JSON，支持加载和删除
+- OpenAI 兼容接口，本地 Ollama 和云端 API 可以切换
 
-## 版本演进（我的学习路径）
+## 开发过程
 
-| 版本 | 里程碑 |
-|---|---|
-| v1 | 单轮对话接入 DeepSeek API（`os.environ` 管理密钥） |
-| v2 | 切换本地 Ollama，实现多轮上下文 + 流式输出 |
-| v3 | 人设系统：昵称 / 性格可配置，System Prompt 模板化 |
-| v4 | 会话持久化：保存 / 加载 / 删除，侧边栏会话历史 |
+项目是跟着课程一步步做出来的：v1 只能单轮对话（DeepSeek API），v2 换成本地 Ollama 并加了流式输出，v3 加了人设配置，v4 加了会话管理（保存 / 加载 / 删除）。
 
-## 快速开始
+## 运行
 
-```bash
-# 1. 安装依赖
+```
 pip install -r requirements.txt
-
-# 2. 准备本地模型（默认 Ollama）
 ollama pull qwen3.5:4b
-
-# 3. 启动
 streamlit run app.py
 ```
 
-## 配置（环境变量）
+默认连接 http://localhost:11434/v1，模型 qwen3.5:4b。想换 DeepSeek：
 
-| 变量 | 说明 | 默认值 |
-|---|---|---|
-| `LLM_API_KEY` | API 密钥（本地 Ollama 随意填） | `ollama` |
-| `LLM_BASE_URL` | OpenAI 兼容接口地址 | `http://localhost:11434/v1` |
-| `LLM_MODEL` | 模型名 | `qwen3.5:4b` |
-
-切换到 DeepSeek（PowerShell 示例）：
-
-```powershell
+```
 $env:LLM_API_KEY = "sk-你的密钥"
 $env:LLM_BASE_URL = "https://api.deepseek.com"
 $env:LLM_MODEL = "deepseek-chat"
-streamlit run app.py
 ```
 
-## Roadmap
+环境变量说明见 `.env.example`。
 
-- [ ] RAG 化改造：接入课程知识库，回答附带引用来源
-- [ ] 智能工单 Agent Demo（延续设备维修系统需求分析课设）
+## 接下来
+
+准备把它改成 RAG 版：接入课程资料做知识库，回答带上引用来源，过程记录在 notes/ 目录。
 
 ---
 
-作者：柯润杭 · 广东白云学院 · 计算机科学与技术
+柯润杭 · 广东白云学院 · 计算机科学与技术
